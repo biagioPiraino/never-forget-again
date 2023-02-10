@@ -7,7 +7,7 @@ class MailServerHelper:
         special_character = '@'
         ending_character = '.'
         if (special_character in email):
-            return email.partition(special_character)[1].partition(ending_character)[0]
+            return email.partition(special_character)[2].partition(ending_character)[0]
         
         return None
 
