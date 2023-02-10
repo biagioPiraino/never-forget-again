@@ -24,7 +24,7 @@ class MailServerHelper:
         }
 
         # Credentials will be retrieved from a raw text file
-        with open("credentials", "r", encoding="utf-8") as file:
+        with open(file="credentials", mode="r", encoding="utf-8") as file:
             split_line = file.readline().split(",")
             credentials["mail"] = split_line[0]
             credentials["password"] = split_line[1]
