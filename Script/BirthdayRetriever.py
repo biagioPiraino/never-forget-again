@@ -9,7 +9,7 @@ class BirthdayRetriever:
     def RetrieveTodayBirthdays(self) -> list:
         # Retrieve all the birthdays from the file
         file_handler = FileHandler()
-        scheduled_birthdays = file_handler.RetrieveAllBirthdays()
+        scheduled_birthdays = file_handler.RetrieveAllBirthdaysFromFile()
 
         today = datetime.today()
         todays_birthdays = list()
