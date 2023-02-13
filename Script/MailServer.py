@@ -4,13 +4,6 @@ from MailServerHelper import MailServerHelper
 class MailServer():
     def __init__(self) -> None:
         pass
-    
-    @classmethod
-    def __define_smtp_conn_string(self, provider: str) -> str:
-        if (provider == "gmail" or provider == "Gmail"):
-            return "smtp.gmail.com"
-        
-        return None
 
     @classmethod
     def __connect(self) -> smt.SMTP:
@@ -18,8 +11,11 @@ class MailServer():
         helper = MailServerHelper()
         sender_credentials = helper.RetrieveCredentials()
         # Connect the user to the mail server
-        smtp_connection = smt.SMTP(self.__define_smtp_conn_string(provider=sender_credentials["provider"]))
+        smtp_connection_string = helper.DefineSMTPConnectionString(provider=sender_credentials["provider"])
+        smtp_connection = smt.SMTP(smtp_connection_string)
+        # Start encryption in-flight (TLS)
         smtp_connection.starttls()
+        # Login user
         smtp_connection.login(user=sender_credentials["mail"], password=sender_credentials["password"])
         # Return the connection
         return smtp_connection

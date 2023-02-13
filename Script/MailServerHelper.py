@@ -14,6 +14,13 @@ class MailServerHelper:
         return None
 
     @classmethod
+    def DefineSMTPConnectionString(self, provider: str) -> str:
+        if (provider == "gmail" or provider == "Gmail"):
+            return "smtp.gmail.com"
+        
+        return None
+
+    @classmethod
     def RetrieveCredentials(self) -> dict:
         """
             Credentials will be stored in a dictionary.
