@@ -1,5 +1,5 @@
 import smtplib as smt
-import MailServerHelper
+from MailServerHelper import MailServerHelper
 
 class MailServer():
     def __init__(self) -> None:

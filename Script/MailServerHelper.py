@@ -1,3 +1,5 @@
+from FileHandler import FileHandler
+
 class MailServerHelper:
     def __init__(self) -> None:
         pass
@@ -17,17 +19,13 @@ class MailServerHelper:
             Credentials will be stored in a dictionary.
             The dictionary will contain three keys: "mail", "password", "provider"
         """
+        file_handler = FileHandler()
+        file_credentials = file_handler.RetrieveCredentialsFromFile()
+
         credentials = {
-            "mail": "",
-            "password": "",
-            "provider": "" 
+            "mail": file_credentials[0],
+            "password": file_credentials[1],
+            "provider": self.__define_provider(file_credentials[0]) 
         }
 
-        # Credentials will be retrieved from a raw text file
-        with open(file="credentials", mode="r", encoding="utf-8") as file:
-            split_line = file.readline().split(",")
-            credentials["mail"] = split_line[0]
-            credentials["password"] = split_line[1]
-            credentials["provider"] = self.__define_provider(split_line[0])
-        
         return credentials

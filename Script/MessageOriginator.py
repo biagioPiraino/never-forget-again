@@ -1,4 +1,5 @@
 import random
+from FileHandler import FileHandler
 
 class MessageOriginator:
     __single_line = '\n'
@@ -13,10 +14,9 @@ class MessageOriginator:
 
     @classmethod
     def __retrieve_random_quote(self) -> str:
-        with open(file="quotes", mode="r", encoding="utf-8") as file:
-            quotes = file.readlines()
-            quote = random.choice(quotes) 
-            return f"{quote}{self.__single_line}"
+        file_handler = FileHandler()
+        all_quotes = file_handler.RetrieveAllQuotesFromFile()
+        return f"{random.choice(all_quotes)}{self.__single_line}"
 
     @classmethod
     def __retrieve_ending(self, sender_name: str) -> str:
@@ -34,4 +34,4 @@ class MessageOriginator:
         initial_part = self.__retrieve_initial_part(recipient_name=recipient_name)
         quote = self.__retrieve_random_quote()
         ending = self.__retrieve_ending(sender_name=sender_name)
-        return f"{initial_part}{quote}{ending}"           
+        return f"{initial_part}{quote}{ending}"
