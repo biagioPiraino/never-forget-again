@@ -6,6 +6,16 @@ class MailServer():
         pass
 
     @classmethod
+    def SendEmail(self, message: str, recipient: str) -> None:
+        try:
+            with self.__connect() as connection:
+                connection.sendmail(
+                    from_addr=connection.user, to_addrs=recipient, msg=message)
+        except (smt.SMTPHeloError, smt.SMTPAuthenticationError,
+                smt.SMTPConnectError, smt.SMTPException) as error:
+            print(error)
+
+    @classmethod
     def __connect(self) -> smt.SMTP:
         # Retrieve sender credentials
         helper = MailServerHelper()
@@ -19,13 +29,3 @@ class MailServer():
         smtp_connection.login(user=sender_credentials["mail"], password=sender_credentials["password"])
         # Return the connection
         return smtp_connection
-        
-    @classmethod
-    def SendEmail(self, message: str, recipient: str) -> None:
-        try:
-            with self.__connect() as connection:
-                connection.sendmail(
-                    from_addr=connection.user, to_addrs=recipient, msg=message)
-        except (smt.SMTPHeloError, smt.SMTPAuthenticationError,
-                smt.SMTPConnectError, smt.SMTPException) as error:
-            print(error)
